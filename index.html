@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#07090F" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="description" content="Cromos — Controle seu álbum de figurinhas da Copa do Mundo 2026" />
+  <title>Cromos · Copa 2026</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+<div id="app">
+
+  <!-- ════════════ HEADER ════════════ -->
+  <header id="app-header">
+    <div class="header-brand">
+      <div class="header-brand-mark">⚽</div>
+      <span class="header-brand-name">CRO<em>MOS</em></span>
+    </div>
+    <div class="header-actions">
+      <button class="header-user-btn" id="hdr-user" style="display:none" onclick="App.go('perfil')">
+        <div class="header-user-avatar" id="hdr-avatar">U</div>
+        <span id="hdr-username">@—</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ════════════ MAIN ════════════ -->
+  <main id="main">
+
+    <!-- AUTH (visível por padrão) -->
+    <div id="view-auth" class="view active"></div>
+
+    <!-- ÁLBUM -->
+    <div id="view-album" class="view"></div>
+
+    <!-- STATS -->
+    <div id="view-stats" class="view"></div>
+
+    <!-- AMIGOS -->
+    <div id="view-amigos" class="view"></div>
+
+    <!-- TROCAS (sem nav) -->
+    <div id="view-trocas" class="view"></div>
+
+    <!-- PERFIL -->
+    <div id="view-perfil" class="view"></div>
+
+  </main>
+
+  <!-- ════════════ BOTTOM NAV ════════════ -->
+  <nav id="bottom-nav">
+
+    <button class="nav-btn" data-view="album" onclick="App.go('album')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>
+      </svg>
+      <span>Álbum</span>
+    </button>
+
+    <button class="nav-btn" data-view="stats" onclick="App.go('stats')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" x2="18" y1="20" y2="10"/>
+        <line x1="12" x2="12" y1="20" y2="4"/>
+        <line x1="6"  x2="6"  y1="20" y2="14"/>
+      </svg>
+      <span>Stats</span>
+    </button>
+
+    <button class="nav-btn" data-view="amigos" onclick="App.go('amigos')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+      </svg>
+      <span>Amigos</span>
+    </button>
+
+    <button class="nav-btn" data-view="perfil" onclick="App.go('perfil')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+        <circle cx="12" cy="7" r="4"/>
+      </svg>
+      <span>Perfil</span>
+    </button>
+
+  </nav>
+
+</div><!-- /app -->
+
+<!-- ════════════ SCRIPTS ════════════ -->
+<script src="js/data.js"></script>
+<script src="js/services/firebase.js"></script>
+<script src="js/app.js"></script>
+<script src="js/views.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Header scroll effect
+    window.addEventListener("scroll", () => {
+      document.getElementById("app-header").classList.toggle("scrolled", window.scrollY > 10);
+    }, { passive: true });
+
+    App.init();
+  });
+</script>
+</body>
+</html>
